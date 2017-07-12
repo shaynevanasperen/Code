@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Threading.SafeAsync</id>
+    <version>1.0.0</version>
+    <description>Source code package. A class containing methods for synchronously waiting on a Task, preventing deadlocks due to the presence of a synchronization context. Useful as a temporary solution until you can flow async all the way through.</description>
+    <language>en-US</language>
+    <tags>threading synchronization context asynchronous synchronous task wait result</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="SafeAsync.cs" target="content\App_Packages\Code.Threading.SafeAsync.cs" />
+    <file src="SafeAsync.cs" target="contentFiles\cs\any\App_Packages\Code.Threading.SafeAsync.cs" />
+  </files>
+</package>

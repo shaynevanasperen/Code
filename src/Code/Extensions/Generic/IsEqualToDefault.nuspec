@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Generic.IsEqualToDefault</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for asserting whether or not an object is equal to its default value.</description>
+    <language>en-US</language>
+    <tags>equal default</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="IsEqualToDefault.cs" target="content\App_Packages\Code.Extensions.Generic.IsEqualToDefault.cs" />
+    <file src="IsEqualToDefault.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Generic.IsEqualToDefault.cs" />
+  </files>
+</package>

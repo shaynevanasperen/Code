@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Type.IsNullable</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for determining whether or not a type is nullable.</description>
+    <language>en-US</language>
+    <tags>nullable</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="IsNullable.cs" target="content\App_Packages\Code.Extensions.Type.IsNullable.cs" />
+    <file src="IsNullable.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Type.IsNullable.cs" />
+  </files>
+</package>

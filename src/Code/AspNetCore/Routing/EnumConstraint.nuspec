@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.AspNetCore.Routing.EnumConstraint</id>
+    <version>1.0.0</version>
+    <description>Source code package. A route constraint for constraining route parameters to enum values.</description>
+    <language>en-US</language>
+    <tags>aspnet route constraint</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="EnumConstraint.cs" target="content\App_Packages\Code.AspNetCore.Routing.EnumConstraint.cs" />
+    <file src="EnumConstraint.cs" target="contentFiles\cs\any\App_Packages\Code.AspNetCore.Routing.EnumConstraint.cs" />
+  </files>
+</package>

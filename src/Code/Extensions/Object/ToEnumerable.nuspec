@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Object.ToEnumerable</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for retrieving an object's public instance property values as a series of values in alphabetical order of the property names.</description>
+    <language>en-US</language>
+    <tags>enumerable properties</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="ToEnumerable.cs" target="content\App_Packages\Code.Extensions.Object.ToEnumerable.cs" />
+    <file src="ToEnumerable.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Object.ToEnumerable.cs" />
+  </files>
+</package>

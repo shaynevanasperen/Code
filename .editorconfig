@@ -1,0 +1,12 @@
+root = true
+
+[*]
+end_of_line = crlf
+indent_style = tab
+
+[*.nuspec]
+indent_style = space
+indent_size = 2
+
+[*.{props,csproj}]
+indent_size = 2

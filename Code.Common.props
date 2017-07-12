@@ -1,0 +1,8 @@
+﻿<Project>
+	<PropertyGroup>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="*.ncrunchproject" />
+	</ItemGroup>
+</Project>

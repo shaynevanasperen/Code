@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Generic.QuasiEquals</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for asserting object equality by using the Code.Collections.Generic.AssertComparer.</description>
+    <language>en-US</language>
+    <tags>quasi compare equals</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+    <dependencies>
+      <dependency id="Code.Collections.Generic.AssertComparer" version="1.0.0" include="all" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="QuasiEquals.cs" target="content\App_Packages\Code.Extensions.Generic.QuasiEquals.cs" />
+    <file src="QuasiEquals.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Generic.QuasiEquals.cs" />
+  </files>
+</package>
