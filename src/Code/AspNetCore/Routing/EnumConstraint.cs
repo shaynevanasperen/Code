@@ -2,8 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyModel;
 
 namespace Code.AspNetCore.Routing
 {
@@ -17,10 +19,22 @@ namespace Code.AspNetCore.Routing
 		{
 			_validOptions = Cache.GetOrAdd(enumType, key =>
 			{
-				var type = Type.GetType(key);
-				if (type == null)
-					throw new InvalidOperationException($"'{enumType}' is not a valid enum type. Please use a fully qualified type name.");
-				return Enum.GetNames(type);
+				foreach (var runtimeLibrary in DependencyContext.Default.RuntimeLibraries)
+				{
+					try
+					{
+						var assembly = Assembly.Load(new AssemblyName(runtimeLibrary.Name));
+						var type = assembly.GetType(key);
+						if (type != null)
+							return Enum.GetNames(type);
+					}
+					catch
+					{
+						// ignored
+					}
+				}
+
+				throw new InvalidOperationException($"'{enumType}' is not a valid enum type. Please use a fully qualified type name.");
 			});
 		}
 

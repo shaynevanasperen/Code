@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Code.AspNetCore.Routing;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -19,15 +20,15 @@ namespace Code.Tests.AspNetCore.Routing
 		{
 			Exception _exception;
 
-			void GivenAnInvalidEnumType() => _exception = Catch.Exception(() => SUT = new EnumConstraintWrapper("DayOfWeek"));
+			void GivenAnInvalidEnumType() => _exception = Catch.Exception(() => SUT = new EnumConstraintWrapper("HttpStatusCode"));
 			void ThenItFailsToInstantiate() => _exception.Should().NotBeNull();
 		}
 
 		public abstract class ForValidEnumType : EnumConstraintMatching
 		{
-			protected void GivenAValidEnumType() => SUT = new EnumConstraintWrapper("System.DayOfWeek");
+			protected void GivenAValidEnumType() => SUT = new EnumConstraintWrapper("System.Net.HttpStatusCode");
 			protected void WhenMatching() => Result = SUT.Match(Substitute.For<HttpContext>(), Substitute.For<IRouter>(), RouteKey, RouteValues, RouteDirection.IncomingRequest);
-			protected void ThenNamesAreExposed() => SUT.Names.ShouldAllBeEquivalentTo(Enum.GetNames(typeof(DayOfWeek)));
+			protected void ThenNamesAreExposed() => SUT.Names.ShouldAllBeEquivalentTo(Enum.GetNames(typeof(HttpStatusCode)));
 
 			public class ForMissingRouteValue : ForValidEnumType
 			{
@@ -43,7 +44,7 @@ namespace Code.Tests.AspNetCore.Routing
 
 			public class ForValidRouteValue : ForValidEnumType
 			{
-				void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, DayOfWeek.Monday);
+				void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, HttpStatusCode.Accepted);
 				void AndThenItMatches() => Result.Should().BeTrue();
 			}
 		}
