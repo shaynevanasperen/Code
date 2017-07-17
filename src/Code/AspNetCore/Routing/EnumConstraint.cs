@@ -10,6 +10,7 @@ namespace Code.AspNetCore.Routing
 	{
 		static readonly ConcurrentDictionary<string, string[]> Cache = new ConcurrentDictionary<string, string[]>();
 		readonly string[] _validOptions;
+		public IEnumerable<string> Names => _validOptions;
 
 		public EnumConstraint(string enumType)
 		{
