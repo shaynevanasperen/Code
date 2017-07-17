@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Code.AspNetCore.Routing;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -26,23 +27,24 @@ namespace Code.Tests.AspNetCore.Routing
 		{
 			protected void GivenAValidEnumType() => SUT = new EnumConstraintWrapper("System.DayOfWeek");
 			protected void WhenMatching() => Result = SUT.Match(Substitute.For<HttpContext>(), Substitute.For<IRouter>(), RouteKey, RouteValues, RouteDirection.IncomingRequest);
+			protected void ThenNamesAreExposed() => SUT.Names.ShouldAllBeEquivalentTo(Enum.GetNames(typeof(DayOfWeek)));
 
 			public class ForMissingRouteValue : ForValidEnumType
 			{
 				void AndGivenNoMatchingRouteValue() { }
-				void ThenItFailsToMatch() => Result.Should().BeFalse();
+				void AndThenItFailsToMatch() => Result.Should().BeFalse();
 			}
 
 			public class ForInvalidRouteValue : ForValidEnumType
 			{
 				void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, "Invalid");
-				void ThenItFailsToMatch() => Result.Should().BeFalse();
+				void AndThenItFailsToMatch() => Result.Should().BeFalse();
 			}
 
 			public class ForValidRouteValue : ForValidEnumType
 			{
 				void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, DayOfWeek.Monday);
-				void ThenItMatches() => Result.Should().BeTrue();
+				void AndThenItMatches() => Result.Should().BeTrue();
 			}
 		}
 	}
@@ -52,14 +54,10 @@ namespace Code.Tests.AspNetCore.Routing
 	{
 		readonly EnumConstraint _inner;
 
-		public EnumConstraintWrapper(string enumType)
-		{
-			_inner = new EnumConstraint(enumType);
-		}
+		public EnumConstraintWrapper(string enumType) => _inner = new EnumConstraint(enumType);
 
-		public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
-		{
-			return _inner.Match(httpContext, route, routeKey, values, routeDirection);
-		}
+		public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection) => _inner.Match(httpContext, route, routeKey, values, routeDirection);
+
+		public IEnumerable<string> Names => _inner.Names;
 	}
 }

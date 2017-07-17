@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -10,6 +11,7 @@ namespace Code.AspNetCore.Routing
 	{
 		static readonly ConcurrentDictionary<string, string[]> Cache = new ConcurrentDictionary<string, string[]>();
 		readonly string[] _validOptions;
+		public IEnumerable<string> Names => _validOptions;
 
 		public EnumConstraint(string enumType)
 		{
