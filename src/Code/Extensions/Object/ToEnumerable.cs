@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -8,8 +9,12 @@ namespace Code.Extensions.Object
 	{
 		internal static IEnumerable<object> ToEnumerable(this object source)
 		{
-			var sourceEnumerable = source as IEnumerable<object>;
-			return sourceEnumerable ?? source.GetType().GetRuntimeProperties().OrderBy(x => x.Name).Select(x => x.GetValue(source, null));
+			var objectEnumerable = source as IEnumerable<object>;
+			if (objectEnumerable != null)
+				return objectEnumerable;
+			if (source is IEnumerable sourceEnumerable)
+				objectEnumerable = sourceEnumerable.Cast<object>().ToArray();
+			return objectEnumerable ?? source.GetType().GetRuntimeProperties().OrderBy(x => x.Name).Select(x => x.GetValue(source, null));
 		}
 	}
 }
