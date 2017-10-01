@@ -3,6 +3,7 @@ root = true
 [*]
 end_of_line = crlf
 indent_style = tab
+indent_size = 4
 
 [*.nuspec]
 indent_style = space

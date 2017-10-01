@@ -1,6 +1,6 @@
 <img src="Code.png" align="right" />
 
-[![Build status](https://ci.appveyor.com/api/projects/status/0a3xgtsq2qgnml8d?svg=true)](https://ci.appveyor.com/project/shaynevanasperen/code)
+[![Build status](https://ci.appveyor.com/api/projects/status/i130bp27k2ny5ai4?svg=true)](https://ci.appveyor.com/project/shaynevanasperen/code)
 [![Join the chat at https://gitter.im/code-packages](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/code-packages)
 ![License](https://img.shields.io/github/license/shaynevanasperen/code.svg)
 
