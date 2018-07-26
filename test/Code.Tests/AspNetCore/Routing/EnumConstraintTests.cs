@@ -28,7 +28,7 @@ namespace Code.Tests.AspNetCore.Routing
 		{
 			protected void GivenAValidEnumType() => SUT = new EnumConstraintWrapper("System.Net.HttpStatusCode");
 			protected void WhenMatching() => Result = SUT.Match(Substitute.For<HttpContext>(), Substitute.For<IRouter>(), RouteKey, RouteValues, RouteDirection.IncomingRequest);
-			protected void ThenNamesAreExposed() => SUT.Names.ShouldAllBeEquivalentTo(Enum.GetNames(typeof(HttpStatusCode)));
+			protected void ThenNamesAreExposed() => SUT.Names.Should().BeEquivalentTo(Enum.GetNames(typeof(HttpStatusCode)));
 
 			public class ForMissingRouteValue : ForValidEnumType
 			{
