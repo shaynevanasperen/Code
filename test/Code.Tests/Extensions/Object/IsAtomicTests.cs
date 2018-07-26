@@ -35,6 +35,12 @@ namespace Code.Tests.Extensions.Object
 			void ThenItReturnsTrue() => Result.Should().BeTrue();
 		}
 
+		public class ForDecimal : ObjectIsAtomic
+		{
+			void GivenADecimal() => SUT = decimal.MinValue;
+			void ThenItReturnsTrue() => Result.Should().BeTrue();
+		}
+
 		public class ForPrimitive : ObjectIsAtomic
 		{
 			public ForPrimitive()
@@ -44,16 +50,17 @@ namespace Code.Tests.Extensions.Object
 					true,
 					byte.MinValue,
 					sbyte.MinValue,
-					char.MinValue,
-					decimal.MinValue,
-					double.MinValue,
-					float.MinValue,
+					short.MinValue,
+					ushort.MinValue,
 					int.MinValue,
 					uint.MinValue,
 					long.MinValue,
 					ulong.MinValue,
-					short.MinValue,
-					ushort.MinValue
+					new IntPtr(int.MaxValue),
+					new UIntPtr(uint.MaxValue),
+					char.MinValue,
+					double.MinValue,
+					float.MinValue
 				};
 			}
 

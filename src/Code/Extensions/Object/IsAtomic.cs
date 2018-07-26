@@ -12,6 +12,7 @@ namespace Code.Extensions.Object
 				   source is string ||
 				   source is Enum ||
 				   source is DateTime ||
+				   source is decimal ||
 				   source.GetType().GetTypeInfo().IsPrimitive ||
 				   !source.GetType().GetRuntimeProperties().Any();
 		}
