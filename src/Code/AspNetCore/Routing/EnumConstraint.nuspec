@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Code.AspNetCore.Routing.EnumConstraint</id>
-    <version>1.2.0</version>
+    <version>2.0.0</version>
     <description>Source code package. A route constraint for constraining route parameters to enum values.</description>
     <language>en-US</language>
     <tags>aspnet route constraint</tags>

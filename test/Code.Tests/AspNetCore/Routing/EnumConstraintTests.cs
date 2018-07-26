@@ -10,7 +10,7 @@ using Specify;
 
 namespace Code.Tests.AspNetCore.Routing
 {
-	public abstract class EnumConstraintMatching : ScenarioFor<EnumConstraintWrapper>
+	public abstract class EnumConstraintMatching : ScenarioFor<EnumConstraintWrapper<HttpStatusCode>>
 	{
 		protected string RouteKey = "RouteKey";
 		protected RouteValueDictionary RouteValues = new RouteValueDictionary();
@@ -20,13 +20,14 @@ namespace Code.Tests.AspNetCore.Routing
 		{
 			Exception _exception;
 
-			void GivenAnInvalidEnumType() => _exception = Catch.Exception(() => SUT = new EnumConstraintWrapper("HttpStatusCode"));
+			void GivenAnInvalidEnumType() => _exception = Catch.Exception(() => new EnumConstraintWrapper<int>());
 			void ThenItFailsToInstantiate() => _exception.Should().NotBeNull();
 		}
 
 		public abstract class ForValidEnumType : EnumConstraintMatching
 		{
-			protected void GivenAValidEnumType() => SUT = new EnumConstraintWrapper("System.Net.HttpStatusCode");
+			protected void GivenAValidEnumType() => SUT = new EnumConstraintWrapper<HttpStatusCode>();
+
 			protected void WhenMatching() => Result = SUT.Match(Substitute.For<HttpContext>(), Substitute.For<IRouter>(), RouteKey, RouteValues, RouteDirection.IncomingRequest);
 			protected void ThenNamesAreExposed() => SUT.Names.Should().BeEquivalentTo(Enum.GetNames(typeof(HttpStatusCode)));
 
@@ -51,11 +52,11 @@ namespace Code.Tests.AspNetCore.Routing
 	}
 
 	// Only so that we can make it public for testing, until such time that BDDfy can test internal classes
-	public class EnumConstraintWrapper : IRouteConstraint
+	public class EnumConstraintWrapper<T> : IRouteConstraint where T : struct
 	{
-		readonly EnumConstraint _inner;
+		readonly EnumConstraint<T> _inner;
 
-		public EnumConstraintWrapper(string enumType) => _inner = new EnumConstraint(enumType);
+		public EnumConstraintWrapper() => _inner = new EnumConstraint<T>();
 
 		public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection) => _inner.Match(httpContext, route, routeKey, values, routeDirection);
 
