@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Code.Extensions.Object.ToEnumerable</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <description>Source code package. An extension for retrieving an object's public instance property values as a series of values (boxed) in alphabetical order of the property names, or if the object is already a collection, the elements of that collection (boxed).</description>
     <language>en-US</language>
     <tags>enumerable properties</tags>

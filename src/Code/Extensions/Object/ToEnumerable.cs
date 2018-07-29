@@ -14,7 +14,11 @@ namespace Code.Extensions.Object
 				return objectEnumerable;
 			if (source is IEnumerable sourceEnumerable)
 				objectEnumerable = sourceEnumerable.Cast<object>().ToArray();
-			return objectEnumerable ?? source.GetType().GetRuntimeProperties().OrderBy(x => x.Name).Select(x => x.GetValue(source, null));
+			return objectEnumerable ?? source.GetType()
+					   .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+					   .Where(x => x.GetIndexParameters().Length == 0)
+					   .OrderBy(x => x.Name)
+					   .Select(x => x.GetValue(source, null));
 		}
 	}
 }
