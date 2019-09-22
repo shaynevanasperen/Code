@@ -58,7 +58,7 @@ Task("Pack")
 		LicenseUrl = new Uri("https://github.com/shaynevanasperen/Code/blob/master/LICENSE"),
 		RequireLicenseAcceptance = false,
 		DevelopmentDependency = true,
-    OutputDirectory = "./artifacts"
+		OutputDirectory = "./artifacts"
 	};
 	var nuspecFiles = GetFiles("./**/*.nuspec");
 	NuGetPack(nuspecFiles, nuGetPackSettings);
