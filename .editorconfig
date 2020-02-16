@@ -1,3 +1,4 @@
+# editorconfig.org
 root = true
 
 [*]
@@ -9,5 +10,5 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
-[*.{props,csproj}]
+[*.{config,csproj,props,dotsettings,feature,fxcop,js,json,markdown,md,ncrunch*,ndepend,rb,targets,xml,xsd}]
 indent_size = 2

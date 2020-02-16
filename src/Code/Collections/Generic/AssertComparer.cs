@@ -173,7 +173,9 @@ namespace Code.Collections.Generic
 				var yString = string.Join("_", y.Flatten());
 				return new ComparisionResult(string.CompareOrdinal(xString, yString));
 			}
+#pragma warning disable CA1031 // Do not catch general exception types
 			catch
+#pragma warning restore CA1031 // Do not catch general exception types
 			{
 				return new NoResult();
 			}

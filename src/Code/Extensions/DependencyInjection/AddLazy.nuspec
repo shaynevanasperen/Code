@@ -3,7 +3,7 @@
   <metadata>
     <id>Code.Extensions.DependencyInjection.AddLazy</id>
     <version>1.0.0</version>
-    <description>Source code package. An extension for adding LAzy&lt;T&gt; support to an IServiceCollection.</description>
+    <description>Source code package. An extension for adding Lazy&lt;T&gt; support to an IServiceCollection.</description>
     <language>en-US</language>
     <tags>service collection provider dependency injection lazy</tags>
     <contentFiles>
