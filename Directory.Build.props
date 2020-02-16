@@ -1,6 +1,8 @@
 ﻿<Project>
 	<PropertyGroup>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<LangVersion>latest</LangVersion>
+		<NoWarn>$(NoWarn);CA1303</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="*.ncrunchproject" />
