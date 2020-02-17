@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Generic.ToNestedDictionary</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for converting the entries in an IDictionary&lt;string,string&gt; to a nested IDictionary&lt;string,object&gt;.</description>
+    <language>en-US</language>
+    <tags>dictionary nested convert parent child</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="ToNestedDictionary.cs" target="content\App_Packages\Code.Extensions.Generic.ToNestedDictionary.cs" />
+    <file src="ToNestedDictionary.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Generic.ToNestedDictionary.cs" />
+  </files>
+</package>

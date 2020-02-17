@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Exception.GetFingerprint</id>
+    <version>1.0.0</version>
+    <description>Source code package. A utility class for obtaining a "fingerprint" (hash) of an exception to help identify common or frequently thrown exceptions in logs.</description>
+    <language>en-US</language>
+    <tags>fingerprint hash logging logs identify exception</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="GetFingerprint.cs" target="content\App_Packages\Code.Extensions.Exception.GetFingerprint.cs" />
+    <file src="GetFingerprint.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Exception.GetFingerprint.cs" />
+  </files>
+</package>

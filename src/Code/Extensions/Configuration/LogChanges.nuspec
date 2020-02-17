@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Configuration.LogChanges</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for logging any changes detected on a given IConfigurationRoot.</description>
+    <language>en-US</language>
+    <tags>configuration root changes logging log</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+    <dependencies>
+      <dependency id="Code.Extensions.Configuration.GetSectionNames" version="1.0.0" include="all" />
+      <dependency id="Code.Extensions.Configuration.ToNestedDictionary" version="1.0.0" include="all" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="LogChanges.cs" target="content\App_Packages\Code.Extensions.Configuration.LogChanges.cs" />
+    <file src="LogChanges.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Configuration.LogChanges.cs" />
+  </files>
+</package>

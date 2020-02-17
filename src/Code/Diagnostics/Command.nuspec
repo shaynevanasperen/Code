@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Diagnostics.Command</id>
+    <version>1.0.0</version>
+    <description>Source code package. A utility class for running external processes in various ways, with timeout and success/failure notification and getting their output recorded via a logger.</description>
+    <language>en-US</language>
+    <tags>process start run timeout success failure logging</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="Command.cs" target="content\App_Packages\Code.Diagnostics.Command.cs" />
+    <file src="Command.cs" target="contentFiles\cs\any\App_Packages\Code.Diagnostics.Command.cs" />
+  </files>
+</package>

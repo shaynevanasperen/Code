@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Generic.AsRenderedEnumerable</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension which parses the values of the given IDictionary&lt;string,object&gt; and replaces any tokens referencing keys from itself.</description>
+    <language>en-US</language>
+    <tags>render value token replacement enumerable</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+    <dependencies>
+      <dependency id="Code.Extensions.Generic.RenderValue" version="1.0.0" include="all" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="AsRenderedEnumerable.cs" target="content\App_Packages\Code.Extensions.Generic.AsRenderedEnumerable.cs" />
+    <file src="AsRenderedEnumerable.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Generic.AsRenderedEnumerable.cs" />
+  </files>
+</package>
