@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Configuration.ToDictionary</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for converting the values in either an IConfiguration or an IConfigurationProvider to an IDictionary&lt;string,string&gt;.</description>
+    <language>en-US</language>
+    <tags>configuration provider dictionary</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="ToDictionary.cs" target="content\App_Packages\Code.Extensions.Configuration.ToDictionary.cs" />
+    <file src="ToDictionary.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Configuration.ToDictionary.cs" />
+  </files>
+</package>

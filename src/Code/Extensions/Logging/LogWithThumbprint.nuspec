@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Logging.LogWithThumbprint</id>
+    <version>1.0.0</version>
+    <description>Source code package. Formats and writes a log message at the specified log level, adding context properties including a "fingerprint" (hash) of the exception to help identify common or frequently thrown exceptions.</description>
+    <language>en-US</language>
+    <tags>fingerprint hash logging logs identify exception context format</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+    <dependencies>
+      <dependency id="Code.Extensions.Exception.GetFingerprint" version="1.0.0" include="all" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="LogWithThumbprint.cs" target="content\App_Packages\Code.Extensions.Logging.LogWithThumbprint.cs" />
+    <file src="LogWithThumbprint.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Logging.LogWithThumbprint.cs" />
+  </files>
+</package>

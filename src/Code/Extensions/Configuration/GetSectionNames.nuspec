@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Extensions.Configuration.GetSectionNames</id>
+    <version>1.0.0</version>
+    <description>Source code package. An extension for getting the distinct section names (top-level keys) for which the given IConfigurationProvider provides configuration data.</description>
+    <language>en-US</language>
+    <tags>configuration provider section names keys</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="GetSectionNames.cs" target="content\App_Packages\Code.Extensions.Configuration.GetSectionNames.cs" />
+    <file src="GetSectionNames.cs" target="contentFiles\cs\any\App_Packages\Code.Extensions.Configuration.GetSectionNames.cs" />
+  </files>
+</package>
