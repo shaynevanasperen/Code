@@ -38,8 +38,9 @@ namespace Code.Diagnostics
 
 			if (fileProvider == null)
 			{
-				using var physicalFileProvider = new PhysicalFileProvider(Environment.CurrentDirectory);
-				SubstituteAbsentEnvironmentVariablesFromJsonFile(path, physicalFileProvider);
+				using (var physicalFileProvider = new PhysicalFileProvider(Environment.CurrentDirectory))
+					SubstituteAbsentEnvironmentVariablesFromJsonFile(path, physicalFileProvider);
+
 				return;
 			}
 

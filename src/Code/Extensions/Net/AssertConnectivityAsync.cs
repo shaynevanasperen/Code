@@ -24,34 +24,38 @@ namespace Code.Extensions.Net
 		internal static async Task AssertConnectivityAsync(this DnsEndPoint endPoint, string name, TimeSpan timeout,
 			SocketType socketType = SocketType.Stream, ProtocolType protocolType = ProtocolType.Tcp)
 		{
-			using var socketAsyncEventArgs = new ConnectEventArgs();
-			using var cancellationTokenSource = new CancellationTokenSource(timeout);
-			try
+			using (var socketAsyncEventArgs = new ConnectEventArgs())
 			{
-				socketAsyncEventArgs.Initialize(cancellationTokenSource.Token);
-				socketAsyncEventArgs.RemoteEndPoint = endPoint;
-
-				if (Socket.ConnectAsync(socketType, protocolType, socketAsyncEventArgs))
+				using (var cancellationTokenSource = new CancellationTokenSource(timeout))
 				{
-					// Connect completing asynchronously. Enable it to be canceled and wait for it.
-					using (cancellationTokenSource.Token.Register(state => Socket.CancelConnectAsync((SocketAsyncEventArgs)state), socketAsyncEventArgs))
+					try
 					{
-						await socketAsyncEventArgs.Builder.Task.ConfigureAwait(false);
+						socketAsyncEventArgs.Initialize(cancellationTokenSource.Token);
+						socketAsyncEventArgs.RemoteEndPoint = endPoint;
+
+						if (Socket.ConnectAsync(socketType, protocolType, socketAsyncEventArgs))
+						{
+							// Connect completing asynchronously. Enable it to be canceled and wait for it.
+							using (cancellationTokenSource.Token.Register(state => Socket.CancelConnectAsync((SocketAsyncEventArgs)state), socketAsyncEventArgs))
+							{
+								await socketAsyncEventArgs.Builder.Task.ConfigureAwait(false);
+							}
+						}
+						else if (socketAsyncEventArgs.SocketError != SocketError.Success)
+						{
+							// Connect completed synchronously but unsuccessfully.
+							throw new SocketException((int)socketAsyncEventArgs.SocketError);
+						}
+					}
+					catch (OperationCanceledException e)
+					{
+						throw new System.Exception($"Connection attempt to {name} host '{endPoint.Host}:{endPoint.Port}' timed out after {timeout.Seconds} seconds.", e);
+					}
+					catch (System.Exception e)
+					{
+						throw new System.Exception($"Connection attempt to {name} host '{endPoint.Host}:{endPoint.Port}' failed.", e);
 					}
 				}
-				else if (socketAsyncEventArgs.SocketError != SocketError.Success)
-				{
-					// Connect completed synchronously but unsuccessfully.
-					throw new SocketException((int)socketAsyncEventArgs.SocketError);
-				}
-			}
-			catch (OperationCanceledException e)
-			{
-				throw new System.Exception($"Connection attempt to {name} host '{endPoint.Host}:{endPoint.Port}' timed out after {timeout.Seconds} seconds.", e);
-			}
-			catch (System.Exception e)
-			{
-				throw new System.Exception($"Connection attempt to {name} host '{endPoint.Host}:{endPoint.Port}' failed.", e);
 			}
 		}
 
@@ -66,7 +70,7 @@ namespace Code.Extensions.Net
 			public void Initialize(CancellationToken cancellationToken)
 			{
 				CancellationToken = cancellationToken;
-				AsyncTaskMethodBuilder b = default;
+				AsyncTaskMethodBuilder b = default(AsyncTaskMethodBuilder);
 				_ = b.Task; // force initialization
 				Builder = b;
 			}

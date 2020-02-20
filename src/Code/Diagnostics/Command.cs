@@ -39,32 +39,33 @@ namespace Code.Diagnostics
 			if (timeout == TimeSpan.Zero) throw new ArgumentException("Timeout must be non-zero.", nameof(timeout));
 			if (logger == null) throw new ArgumentNullException(nameof(logger));
 
-			using var process = StartProcess(command, arguments, commandType, logger, out var output, out var error);
-
-			if (commandType == CommandType.Terminal)
+			using (var process = StartProcess(command, arguments, commandType, logger, out var output, out var error))
 			{
-				var exitCode = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "%errorlevel%" : "$?";
-
-				process.StandardInput.WriteLine($"{command} {arguments}");
-				process.StandardInput.WriteLine($"exit {exitCode}");
-			}
-
-			var milliseconds = Math.Abs((int)timeout.TotalMilliseconds);
-			if (process.WaitForExit(milliseconds) &&
-				output.WaitHandle.WaitOne(milliseconds) &&
-				error.WaitHandle.WaitOne(milliseconds))
-			{
-				hasError ??= text => false;
-				if (commandType != CommandType.Shell && process.ExitCode != 0 ||
-					hasError(output.Text.ToString()) ||
-					hasError(error.Text.ToString()))
+				if (commandType == CommandType.Terminal)
 				{
-					throw new Exception($"{command} exited with code {process.ExitCode}.{Environment.NewLine}{output.Text}{Environment.NewLine}{error.Text}");
+					var exitCode = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "%errorlevel%" : "$?";
+
+					process.StandardInput.WriteLine($"{command} {arguments}");
+					process.StandardInput.WriteLine($"exit {exitCode}");
 				}
-			}
-			else
-			{
-				throw new Exception($"{command} timed out.");
+
+				var milliseconds = Math.Abs((int)timeout.TotalMilliseconds);
+				if (process.WaitForExit(milliseconds) &&
+					output.WaitHandle.WaitOne(milliseconds) &&
+					error.WaitHandle.WaitOne(milliseconds))
+				{
+					hasError = hasError ?? (text => false);
+					if (commandType != CommandType.Shell && process.ExitCode != 0 ||
+						hasError(output.Text.ToString()) ||
+						hasError(error.Text.ToString()))
+					{
+						throw new Exception($"{command} exited with code {process.ExitCode}.{Environment.NewLine}{output.Text}{Environment.NewLine}{error.Text}");
+					}
+				}
+				else
+				{
+					throw new Exception($"{command} timed out.");
+				}
 			}
 		}
 

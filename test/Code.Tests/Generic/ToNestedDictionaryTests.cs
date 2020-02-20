@@ -42,11 +42,11 @@ namespace Code.Tests.Generic
 		void GivenADictionaryWithKeysThatIndicateANestedStructure()
 		{
 			var json = JsonConvert.SerializeObject(SourceData);
-			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
-			SUT = new ConfigurationBuilder()
-				.AddJsonStream(stream)
-				.Build()
-				.ToDictionary();
+			using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+				SUT = new ConfigurationBuilder()
+					.AddJsonStream(stream)
+					.Build()
+					.ToDictionary();
 		}
 
 		void WhenConvertingToANestedDictionary() => Result = SUT.ToNestedDictionary(ConfigurationPath.KeyDelimiter.Single(), ConfigurationKeyComparer.Instance);
