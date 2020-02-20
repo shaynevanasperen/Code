@@ -17,8 +17,8 @@ namespace Code.Extensions.Configuration
 		{
 			if (provider == null) throw new ArgumentNullException(nameof(provider));
 
-			using var config = new ConfigurationRoot(new[] { provider });
-			return config.ToNestedDictionary();
+			using (var config = new ConfigurationRoot(new[] { provider }))
+				return config.ToNestedDictionary();
 		}
 	}
 

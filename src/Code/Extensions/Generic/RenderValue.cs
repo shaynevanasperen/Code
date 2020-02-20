@@ -135,9 +135,11 @@ namespace Code.Extensions.Generic
 
 			internal string Render(IDictionary<string, string> data, ImmutableArray<string> path, StringComparison keyComparisonType)
 			{
-				using var writer = new StringWriter(CultureInfo.InvariantCulture);
-				Render(data, path, keyComparisonType, writer);
-				return writer.ToString();
+				using (var writer = new StringWriter(CultureInfo.InvariantCulture))
+				{
+					Render(data, path, keyComparisonType, writer);
+					return writer.ToString();
+				}
 			}
 
 			internal void Render(IDictionary<string, string> data, ImmutableArray<string> path, StringComparison keyComparisonType, TextWriter output)
