@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Code.Threading.Tasks.TimeoutAfterSeconds</id>
+    <version>1.0.0</version>
+    <description>Source code package. Extension methods for timing out when waiting on a Task, with bypass that doesn't time out when the debugger is attached. Useful to detect deadlocked/slow tests.</description>
+    <language>en-US</language>
+    <tags>threading task wait result timeout</tags>
+    <contentFiles>
+      <files include="cs/**/*.*" buildAction="Compile" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="TimeoutAfterSeconds.cs" target="content\App_Packages\Code.Threading.Tasks.TimeoutAfterSeconds.cs" />
+    <file src="TimeoutAfterSeconds.cs" target="contentFiles\cs\any\App_Packages\Code.Threading.Tasks.TimeoutAfterSeconds.cs" />
+  </files>
+</package>
