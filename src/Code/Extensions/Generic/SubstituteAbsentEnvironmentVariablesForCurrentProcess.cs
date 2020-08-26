@@ -34,7 +34,9 @@ namespace Code.Extensions.Generic
 			foreach (var substitute in substituteData.Where(item => !environmentData.ContainsKey(item.Key)))
 			{
 				// According to https://docs.microsoft.com/en-gb/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2#environment-variables-configuration-provider
+#pragma warning disable CA1307 // Specify StringComparison
 				var variable = substitute.Key.Replace(ConfigurationPath.KeyDelimiter, "__");
+#pragma warning restore CA1307 // Specify StringComparison
 				Environment.SetEnvironmentVariable(variable, substitute.RenderValue(allData));
 			}
 		}

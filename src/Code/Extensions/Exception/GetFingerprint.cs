@@ -110,7 +110,7 @@ namespace Code.Extensions.Exception
 			{
 				// ReSharper disable once PossibleNullReferenceException
 				builder.Append(declaringType.FullName.Replace('+', '.'));
-				builder.Append(".");
+				builder.Append('.');
 			}
 
 			builder.Append(method.Name);
@@ -121,7 +121,7 @@ namespace Code.Extensions.Exception
 			if (method is MethodInfo methodInfo && methodInfo.IsGenericMethod)
 			{
 				var genericArguments = methodInfo.GetGenericArguments();
-				builder.Append("[");
+				builder.Append('[');
 
 				var firstGenericArgument = true;
 
@@ -129,7 +129,7 @@ namespace Code.Extensions.Exception
 				{
 					if (!firstGenericArgument)
 					{
-						builder.Append(",");
+						builder.Append(',');
 					}
 
 					firstGenericArgument = false;
@@ -137,13 +137,13 @@ namespace Code.Extensions.Exception
 					builder.Append(genericArgument.Name);
 				}
 
-				builder.Append("]");
+				builder.Append(']');
 			}
 		}
 
 		private static void AddParameters(MethodBase method, StringBuilder builder)
 		{
-			builder.Append("(");
+			builder.Append('(');
 
 			var parameterInfos = method.GetParameters();
 			var firstParam = true;
@@ -161,7 +161,7 @@ namespace Code.Extensions.Exception
 				builder.Append(typeName + " " + parameterInfo.Name);
 			}
 
-			builder.Append(")");
+			builder.Append(')');
 		}
 
 		private static void AddLineNumber(StackFrame stackFrame, StringBuilder builder)

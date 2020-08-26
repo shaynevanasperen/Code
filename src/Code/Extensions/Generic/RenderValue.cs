@@ -164,7 +164,9 @@ namespace Code.Extensions.Generic
 					path = path.Add(key);
 					var template = value.Parse(data, path, keyComparisonType);
 					value = template.Render(data, path, keyComparisonType);
+#pragma warning disable CA1307 // Specify StringComparison
 					if (data.Keys.Any(x => value.Contains(ValueToken.Cycled(x))))
+#pragma warning restore CA1307 // Specify StringComparison
 						value = ValueToken.Cycled(key);
 
 					data[valueToken.Key] = value;
