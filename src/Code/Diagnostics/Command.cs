@@ -81,13 +81,17 @@ namespace Code.Diagnostics
 					FileName = commandType == CommandType.Terminal ? terminalFileName : command,
 					Arguments = commandType == CommandType.Terminal ? "" : arguments,
 					UseShellExecute = useShellExecute,
-					LoadUserProfile = useShellExecute,
 					WorkingDirectory = Environment.CurrentDirectory,
 					RedirectStandardInput = !useShellExecute,
 					RedirectStandardOutput = !useShellExecute,
 					RedirectStandardError = !useShellExecute
 				}
 			};
+
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			{
+				process.StartInfo.LoadUserProfile = useShellExecute;
+			}
 
 			try
 			{
