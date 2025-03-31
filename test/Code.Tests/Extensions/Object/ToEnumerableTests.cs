@@ -3,76 +3,69 @@ using System.Collections.Generic;
 using Code.Extensions.Object;
 using FluentAssertions;
 
-namespace Code.Tests.Extensions.Object
+namespace Code.Tests.Extensions.Object;
+
+public abstract class ObjectToEnumerable : ScenarioFor<object>
 {
-	public abstract class ObjectToEnumerable : ScenarioFor<object>
+	protected IEnumerable<object?> Result = null!;
+
+	protected void WhenTransformingAnObjectToEnumerable() => Result = SUT.ToEnumerable();
+
+	public class ForAnonymousObject : ObjectToEnumerable
 	{
-		protected IEnumerable<object> Result;
+		void GivenAnAnonymousObjectWithProperties() => SUT = new { Date = DateTime.MinValue, Value = 1 };
+		void ThenItReturnsACollectionContainingThePropertyValuesOrderedByPropertyName() => Result.Should().BeEquivalentTo(DateTime.MinValue, 1);
+	}
 
-		protected void WhenTransformingAnObjectToEnumerable() => Result = SUT.ToEnumerable();
-
-		public class ForAnonymousObject : ObjectToEnumerable
+	public class ForDeclaredObject : ObjectToEnumerable
+	{
+		void GivenADeclaredObjectWithProperties()
 		{
-			void GivenAnAnonymousObjectWithProperties() => SUT = new { Date = DateTime.MinValue, Value = 1 };
-			void ThenItReturnsACollectionContainingThePropertyValuesOrderedByPropertyName() => Result.Should().BeEquivalentTo(DateTime.MinValue, 1);
+			var sut = new DeclaredObject(DateTime.MinValue, 1)
+			{
+				Base = "base",
+				[TestEnum.A] = "A",
+				[TestEnum.B] = "B"
+			};
+			SUT = sut;
 		}
 
-		public class ForDeclaredObject : ObjectToEnumerable
+		void ThenItReturnsACollectionContainingThePropertyValuesOrderedByPropertyName() => Result.Should().BeEquivalentTo("base", DateTime.MinValue, 1);
+
+		class DeclaredObject(DateTime date, int value) : BaseObject
 		{
-			void GivenADeclaredObjectWithProperties()
+			readonly IDictionary<TestEnum, object> _items = new Dictionary<TestEnum, object>();
+
+			public DateTime Date { get; private set; } = date;
+
+			public int Value { get; private set; } = value;
+
+			public static string Static { get; set; } = "static";
+
+			string Private { get; set; } = "private";
+
+			public object this[TestEnum index]
 			{
-				var sut = new DeclaredObject(DateTime.MinValue, 1)
-				{
-					Base = "base",
-					[TestEnum.A] = "A",
-					[TestEnum.B] = "B"
-				};
-				SUT = sut;
-			}
-
-			void ThenItReturnsACollectionContainingThePropertyValuesOrderedByPropertyName() => Result.Should().BeEquivalentTo("base", DateTime.MinValue, 1);
-
-			class DeclaredObject : BaseObject
-			{
-				readonly IDictionary<TestEnum, object> _items = new Dictionary<TestEnum, object>();
-
-				public DeclaredObject(DateTime date, int value)
-				{
-					Date = date;
-					Value = value;
-				}
-
-				public DateTime Date { get; private set; }
-
-				public int Value { get; private set; }
-
-				public static string Static { get; set; } = "static";
-
-				string Private { get; set; } = "private";
-
-				public object this[TestEnum index]
-				{
-					get => _items[index];
-					set => _items[index] = value;
-				}
-			}
-
-			enum TestEnum
-			{
-				A,
-				B
-			}
-
-			class BaseObject
-			{
-				public string Base { get; set; }
+				get => _items[index];
+				set => _items[index] = value;
 			}
 		}
 
-		public class ForCollection : ObjectToEnumerable
+		enum TestEnum
 		{
-			void GivenACollection() => SUT = new[] { 1, 2, 3 };
-			void ThenItReturnsTheGivenCollection() => Result.Should().BeEquivalentTo(1, 2, 3);
+			A,
+			B
 		}
+
+		class BaseObject
+		{
+			public string? Base { get; set; }
+		}
+	}
+
+	public class ForCollection : ObjectToEnumerable
+	{
+		void GivenACollection() => SUT = new[] { 1, 2, 3 };
+		void ThenItReturnsTheGivenCollection() => Result.Should().BeEquivalentTo(1, 2, 3);
 	}
 }

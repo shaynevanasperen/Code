@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Code.Extensions.ValueTuple.ServiceProvider</id>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <description>Source code package. A wrapper of IServiceProvider that can resolve instances of ValueTuple by resolving each item from the inner IServiceProvider.</description>
     <language>en-US</language>
     <tags>valuetuple</tags>
@@ -10,7 +10,7 @@
       <files include="cs/**/*.*" buildAction="Compile" />
     </contentFiles>
     <dependencies>
-      <dependency id="Code.Extensions.ValueTuple" version="1.0.0" include="all" />
+      <dependency id="Code.Extensions.ValueTuple" version="2.0.0" include="all" />
     </dependencies>
   </metadata>
   <files>

@@ -5,25 +5,24 @@ using System.Threading.Tasks;
 using Code.Extensions.Generic;
 using FluentAssertions;
 
-namespace Code.Tests.Generic
+namespace Code.Tests.Generic;
+
+public abstract class RenderingADictionary : RenderingTests
 {
-	public abstract class RenderingADictionary : RenderingTests
+	void GivenADictionaryWithTokensInTheValues() { }
+
+	async Task WhenProjectingToRenderedEnumerable()
 	{
-		void GivenADictionaryWithTokensInTheValues() { }
+		PrintInputData(Input);
 
-		async Task WhenProjectingToRenderedEnumerable()
-		{
-			PrintInputData(Input);
+		Rendered = [];
+		await Task
+			.Run(() => Rendered = Input.AsRenderedEnumerable().ToArray())
+			.TimeoutAfterSeconds(2);
 
-			Rendered = Array.Empty<KeyValuePair<string, string>>();
-			await Task
-				.Run(() => Rendered = Input.AsRenderedEnumerable().ToArray())
-				.TimeoutAfterSeconds(2);
-
-			PrintExpectedData(Expected);
-			PrintRenderedData(Rendered);
-		}
-
-		void ThenTheValuesAreRenderedAsExpected() => Rendered.Should().Equal(Expected);
+		PrintExpectedData(Expected);
+		PrintRenderedData(Rendered);
 	}
+
+	void ThenTheValuesAreRenderedAsExpected() => Rendered.Should().Equal(Expected);
 }

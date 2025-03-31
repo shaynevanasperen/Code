@@ -8,58 +8,55 @@ using Microsoft.AspNetCore.Routing;
 using NSubstitute;
 using Specify;
 
-namespace Code.Tests.AspNetCore.Routing
+namespace Code.Tests.AspNetCore.Routing;
+
+public abstract class EnumConstraintMatching : ScenarioFor<EnumConstraintWrapper<HttpStatusCode>>
 {
-	public abstract class EnumConstraintMatching : ScenarioFor<EnumConstraintWrapper<HttpStatusCode>>
+	protected string RouteKey = "RouteKey";
+	protected RouteValueDictionary RouteValues = [];
+	protected bool Result;
+
+	public class ForInvalidEnumType : EnumConstraintMatching
 	{
-		protected string RouteKey = "RouteKey";
-		protected RouteValueDictionary RouteValues = new RouteValueDictionary();
-		protected bool Result;
+		Exception? _exception;
 
-		public class ForInvalidEnumType : EnumConstraintMatching
-		{
-			Exception _exception;
-
-			void GivenAnInvalidEnumType() => _exception = Catch.Exception(() => new EnumConstraintWrapper<int>());
-			void ThenItFailsToInstantiate() => _exception.Should().NotBeNull();
-		}
-
-		public abstract class ForValidEnumType : EnumConstraintMatching
-		{
-			protected void GivenAValidEnumType() => SUT = new EnumConstraintWrapper<HttpStatusCode>();
-
-			protected void WhenMatching() => Result = SUT.Match(Substitute.For<HttpContext>(), Substitute.For<IRouter>(), RouteKey, RouteValues, RouteDirection.IncomingRequest);
-			protected void ThenNamesAreExposed() => SUT.Names.Should().BeEquivalentTo(Enum.GetNames(typeof(HttpStatusCode)));
-
-			public class ForMissingRouteValue : ForValidEnumType
-			{
-				void AndGivenNoMatchingRouteValue() { }
-				void AndThenItFailsToMatch() => Result.Should().BeFalse();
-			}
-
-			public class ForInvalidRouteValue : ForValidEnumType
-			{
-				void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, "Invalid");
-				void AndThenItFailsToMatch() => Result.Should().BeFalse();
-			}
-
-			public class ForValidRouteValue : ForValidEnumType
-			{
-				void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, HttpStatusCode.Accepted);
-				void AndThenItMatches() => Result.Should().BeTrue();
-			}
-		}
+		void GivenAnInvalidEnumType() => _exception = Catch.Exception(() => new EnumConstraintWrapper<int>());
+		void ThenItFailsToInstantiate() => _exception.Should().NotBeNull();
 	}
 
-	// Only so that we can make it public for testing, until such time that BDDfy can test internal classes
-	public class EnumConstraintWrapper<T> : IRouteConstraint where T : struct
+	public abstract class ForValidEnumType : EnumConstraintMatching
 	{
-		readonly EnumConstraint<T> _inner;
+		protected void GivenAValidEnumType() => SUT = new();
 
-		public EnumConstraintWrapper() => _inner = new EnumConstraint<T>();
+		protected void WhenMatching() => Result = SUT.Match(Substitute.For<HttpContext>(), Substitute.For<IRouter>(), RouteKey, RouteValues, RouteDirection.IncomingRequest);
+		protected void ThenNamesAreExposed() => SUT.Names.Should().BeEquivalentTo(Enum.GetNames<HttpStatusCode>());
 
-		public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection) => _inner.Match(httpContext, route, routeKey, values, routeDirection);
+		public class ForMissingRouteValue : ForValidEnumType
+		{
+			void AndGivenNoMatchingRouteValue() { }
+			void AndThenItFailsToMatch() => Result.Should().BeFalse();
+		}
 
-		public IEnumerable<string> Names => _inner.Names;
+		public class ForInvalidRouteValue : ForValidEnumType
+		{
+			void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, "Invalid");
+			void AndThenItFailsToMatch() => Result.Should().BeFalse();
+		}
+
+		public class ForValidRouteValue : ForValidEnumType
+		{
+			void AndGivenAnInvalidMatchingRouteValue() => RouteValues.Add(RouteKey, HttpStatusCode.Accepted);
+			void AndThenItMatches() => Result.Should().BeTrue();
+		}
 	}
+}
+
+// Only so that we can make it public for testing, until such time that BDDfy can test internal classes
+public class EnumConstraintWrapper<T> : IRouteConstraint where T : struct
+{
+	readonly EnumConstraint<T> _inner = new();
+
+	public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection) => _inner.Match(httpContext, route, routeKey, values, routeDirection);
+
+	public IEnumerable<string> Names => _inner.Names;
 }

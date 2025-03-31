@@ -1,7 +1,8 @@
 ﻿<Project>
 	<PropertyGroup>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<LangVersion>7.0</LangVersion>
+		<LangVersion>13</LangVersion>
+		<Nullable>enable</Nullable>
 		<NoWarn>$(NoWarn);CA1303</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>

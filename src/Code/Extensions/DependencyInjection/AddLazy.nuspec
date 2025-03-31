@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Code.Extensions.DependencyInjection.AddLazy</id>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <description>Source code package. An extension for adding Lazy&lt;T&gt; support to an IServiceCollection.</description>
     <language>en-US</language>
     <tags>service collection provider dependency injection lazy</tags>
